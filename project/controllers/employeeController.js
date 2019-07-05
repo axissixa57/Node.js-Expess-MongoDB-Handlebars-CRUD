@@ -1,5 +1,5 @@
 const express = require('express');
-var router = express.Router();
+const router = express.Router(); // обрабатывает все запросы по маршруту "/employee"
 const mongoose = require('mongoose');
 const Employee = mongoose.model('Employee');
 
@@ -12,13 +12,12 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     if (req.body._id == '')
         insertRecord(req, res);
-        else
+    else
         updateRecord(req, res);
 });
 
-
 function insertRecord(req, res) {
-    var employee = new Employee();
+    const employee = new Employee();
     employee.fullName = req.body.fullName;
     employee.email = req.body.email;
     employee.mobile = req.body.mobile;
@@ -57,7 +56,6 @@ function updateRecord(req, res) {
     });
 }
 
-
 router.get('/list', (req, res) => {
     Employee.find((err, docs) => {
         if (!err) {
@@ -70,7 +68,6 @@ router.get('/list', (req, res) => {
         }
     });
 });
-
 
 function handleValidationError(err, body) {
     for (field in err.errors) {
